@@ -11,10 +11,10 @@ Cadet Kevin Ruthemeyer
 Cadet Alicia Torres   
 
 ## Instructors
-MAJ John Fernandes
+LTC Christopher Morrell   
 
 ## Advisors
-LTC Christopher Morrell
+MAJ John Fernandes   
 
 ## Product Owners
 Dr. Suzanne Matthews 
