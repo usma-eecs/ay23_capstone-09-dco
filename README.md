@@ -20,5 +20,5 @@ LTC Christopher Morrell
 Dr. Suzanne Matthews 
 
 ## Important Links
-https://securityonionsolutions.com/
+https://securityonionsolutions.com/   
 https://docs.securityonion.net/en/2.3/introduction.html
