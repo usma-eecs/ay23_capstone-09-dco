@@ -22,3 +22,11 @@ Dr. Suzanne Matthews
 ## Important Links
 https://securityonionsolutions.com/   
 https://docs.securityonion.net/en/2.3/introduction.html
+
+# Sprint 2 Accomplishments   
+
+## Elastic Search   
+We have succeeded in dynamically querying ElasticSearch for post processing and then we can return post process data to ElasticSearch. The presets to query this data are: metadata, log, destination, source, and network.    
+
+## Zeek   
+We have a successful theoretical configure file to be pushed up to Zeek (see the local.zeek file). This Zeek file can start ingesting software data.    
