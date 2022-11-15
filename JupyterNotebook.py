@@ -46,21 +46,22 @@ if not validQueries.__contains__(userQuery):
 	quit()
 
 
-
+#Count for file names, can hold x amount of logs in the folder at any point
 count = 0
 
 while(True):
 	if(count >= 10):
 		count = 0
 	count += 1
+	
 	es = Elasticsearch(['https://10.19.89.215:9200'],
 	ca_certs=False,verify_certs=False, http_auth=('jupyter','B3@+Navy!!'))
 	searchContext = Search(using=es, index='*:so-*', doc_type='doc')
-
+	#Establish connection to the security onion servers
 
 
 	s = searchContext.query('query_string', query=validQueries[userQuery])
-
+	#Establishes the module/event that is being queried
 
 
 
@@ -68,12 +69,12 @@ while(True):
 	response = s.execute()
 	if response.success():
 	  df = pd.DataFrame((d.to_dict() for d in s.scan()))
-
+	#Converts query into a dataframe
 
 
 	os.makedirs('./dfCSVs', exist_ok=True)  
 	df.to_csv(f'./dfCSVs/out{count}.csv')
+	#Sends dataframe to a csv in another folder
 	
 	#time.sleep(3600)
 
-	# In[ ]:
