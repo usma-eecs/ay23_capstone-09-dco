@@ -38,6 +38,7 @@ use_these_keys = ['metadata','log','destination','source','network']
 def filterKeys(document):
 	return {key: document[key] for key in use_these_keys}
 
+#Creates a generator type. This is the accepted type by the ES database
 def doc_generator(df):
 	df_iter = df.iterrows()
 	for index, document in df_iter:
@@ -49,6 +50,7 @@ def doc_generator(df):
 		}
 	#raise StopIteration
 
+#sends dataframe to elasticsearch database
 helpers.bulk(es, doc_generator(df))
 
 print("Sent to ES")
