@@ -44,6 +44,8 @@ def packetType(buf):
   if hex(eth.type) == '0x800':
     layer = 'eth'
     pkt = eth
+    # import pudb; pudb.set_trace()
+    # breakpoint() 
 
     if (eth[ethernet.Ethernet, ip.IP, tcp.TCP] is not None):
       if eth[tcp.TCP] != None:
@@ -176,12 +178,13 @@ def main():
         smbCheck = True
       elif (mod[i].lower() == 'ssl'):
         sslCheck = True
-
+  breakpoint()
   if (directory != ''):  #probably a better way to do this and dupe most of the below code from preader section, but DHCP passing parameters into a procedure sucks.
     onlyfiles = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
     for f in onlyfiles:
       try:
         preader = ppcap.Reader(filename=directory + '/' + f)
+        breakpoint()
 
         for ts, buf in preader:
           try:
