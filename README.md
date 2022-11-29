@@ -33,5 +33,5 @@ We have a successful theoretical configure file to be pushed up to Zeek (see the
 
 # Sprint 3 Accomplishments   
 
-## Meeting with our Security Onion Contact (Mr. Di Giorgio) 
+## Meeting with our Security Onion Contact   
 We met with Mr. Di Giorgio via Teams to ask his professional guidance on how to edit Zeek via the Salt stack. 
