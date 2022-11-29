@@ -30,3 +30,8 @@ We have succeeded in dynamically querying ElasticSearch for post processing and 
 
 ## Zeek   
 We have a successful theoretical configure file to be pushed up to Zeek (see the local.zeek file). This Zeek file can start ingesting software data.    
+
+# Sprint 3 Accomplishments   
+
+## Meeting with Security Onion Contact (Mr. Di Giorgio) 
+We met with Mr. Di Giorgio via Teams to ask his professional guidance on how to edit Zeek via the Salt stack. 
