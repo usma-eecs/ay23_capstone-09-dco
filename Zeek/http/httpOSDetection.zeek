@@ -39,9 +39,15 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 }
                 else if (/Firefox\// in rec$user_agent) {
                 arr1 = split_string_n(rec$user_agent, /\; /, F, 3);
-                print arr1;
+                print arr1[0];
+                print arr1[1]; # ubuntu
+                print arr1[2]; # linux w/ archetecture type
+                print arr1[3]; # rest of string that is not used
+                arr2 = split_string1(arr1[3], /Firefox\//);
+                print arr2[1];
                 }
          }
 }
+
 
 
