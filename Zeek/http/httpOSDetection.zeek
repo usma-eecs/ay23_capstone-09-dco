@@ -37,7 +37,11 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 print arr4[1];
                 print arr5[0];
                 }
+                else if (/Firefox\// in rec$user_agent) {
+                arr1 = split_string_n(rec$user_agent, /\; /, F, 3);
+                print arr1;
                 }
          }
+}
 
 
