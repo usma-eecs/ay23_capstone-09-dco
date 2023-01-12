@@ -25,10 +25,14 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
             #  /Microsoft-CryptoAPI\// in rec$user_agent ) 
        print rec$user_agent;
         if (rec?$host && rec?$user_agent && /Linux/ in rec$user_agent) {
+                # ensures that we are working with a chrome browser
+                # a firefox browser parses differently/gives more information
+                if (/Chrome\// in rec$user_agent) {
                 arr1 = split_string1(rec$user_agent, /\(/);
                 arr2 = split_string1(arr1[1], / /);
                 arr3 = split_string(arr2[1], /\)/);
                 print arr3[0];
+                }
                 }
          }
 
