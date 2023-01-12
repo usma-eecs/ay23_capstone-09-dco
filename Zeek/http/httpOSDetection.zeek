@@ -32,7 +32,12 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 arr2 = split_string1(arr1[1], / /);
                 arr3 = split_string(arr2[1], /\)/);
                 print arr3[0];
+                arr4 = split_string1(rec$user_agent, /Chrome\//);
+                arr5 = split_string1(arr4[1], / /);
+                print arr4[1];
+                print arr5[0];
                 }
                 }
          }
+
 
