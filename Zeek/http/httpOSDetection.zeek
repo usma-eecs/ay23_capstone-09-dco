@@ -1,9 +1,4 @@
-##! Windows systems access a Microsoft Certificate Revocation List (CRL) periodically. The
-##! user agent for these requests reveals which version of Crypt32.dll installed on the system,
-##! which can uniquely identify the version of Windows that's running.
-##!
-##! This script will log the version of Windows that was identified to the Software framework.
-
+# attempting to model https://github.com/fatemabw/bro-scripts/blob/master/Mac-version-detection.bro
 @load base/protocols/http
 @load base/frameworks/software
 module OS;
