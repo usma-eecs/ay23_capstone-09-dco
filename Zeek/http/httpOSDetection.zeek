@@ -23,7 +23,7 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
         {
         # if ( rec?$host && rec?$user_agent && /crl.microsoft.com/ in rec$host &&
             #  /Microsoft-CryptoAPI\// in rec$user_agent ) 
-       print rec$user_agent;
+       # print rec$user_agent;
         if (rec?$host && rec?$user_agent && /Linux/ in rec$user_agent) {
                 # ensures that we are working with a chrome browser
                 # a firefox browser parses differently/gives more information
@@ -31,23 +31,28 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 arr1 = split_string1(rec$user_agent, /\(/);
                 arr2 = split_string1(arr1[1], / /);
                 arr3 = split_string(arr2[1], /\)/);
-                print arr3[0]; # Linux x86_64
+                # print arr3[0]; # Linux x86_64
                 arr4 = split_string1(rec$user_agent, /Chrome\//);
                 arr5 = split_string1(arr4[1], / /);
-                print arr4[1]; # Chrome version # + safari
-                print arr5[0]; # Chrome version #
+                # print arr4[1]; # Chrome version # + safari
+                # print arr5[0]; # Chrome version #
+
+                print arr3[0] + " " + "Chromium " + arr5[0];
                 }
-                else if (/Firefox\// in rec$user_agent) {
+                else if ("Firefox/" in rec$user_agent) {
                 arr1 = split_string_n(rec$user_agent, /\; /, F, 3);
-                print arr1[0];
-                print arr1[1]; # ubuntu
-                print arr1[2]; # linux w/ archetecture type
-                print arr1[3]; # rest of string that is not used
+                # print arr1[0];
+                # print arr1[1]; # ubuntu
+                # print arr1[2]; # linux w/ archetecture type
+                # print arr1[3]; # rest of string that is not used
                 arr2 = split_string1(arr1[3], /Firefox\//);
-                print arr2[1]; # firefox version
+                # print arr2[1]; # firefox version
+
+                print arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1];
                 }
          }
 }
+
 
 
 
