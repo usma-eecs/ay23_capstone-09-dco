@@ -67,6 +67,10 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 # print arr2[1]; # firefox version
 
                 print arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1];
+                Log::write(OS::LOG, [
+                        $ip=rec$id$orig_h,
+                        $os=arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1]]);
+
                 }
          }
 }
