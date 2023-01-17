@@ -38,6 +38,8 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 # print arr5[0]; # Chrome version #
 
                 print arr3[0] + " " + "Chromium " + arr5[0];
+                Software::found(rec$id, [$version=[$major=0, $minor=0, $addl="Chromium " + arr2[1]],
+                        $name=arr3[0], $host=rec$id$orig_h, $software_type=LINUX]);
                 }
                 else if ("Firefox/" in rec$user_agent) {
                 arr1 = split_string_n(rec$user_agent, /\; /, F, 3);
@@ -52,6 +54,7 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 }
          }
 }
+
 
 
 
