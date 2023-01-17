@@ -31,11 +31,11 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 arr1 = split_string1(rec$user_agent, /\(/);
                 arr2 = split_string1(arr1[1], / /);
                 arr3 = split_string(arr2[1], /\)/);
-                print arr3[0];
+                print arr3[0]; # Linux x86_64
                 arr4 = split_string1(rec$user_agent, /Chrome\//);
                 arr5 = split_string1(arr4[1], / /);
-                print arr4[1];
-                print arr5[0];
+                print arr4[1]; # Chrome version # + safari
+                print arr5[0]; # Chrome version #
                 }
                 else if (/Firefox\// in rec$user_agent) {
                 arr1 = split_string_n(rec$user_agent, /\; /, F, 3);
@@ -44,10 +44,11 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 print arr1[2]; # linux w/ archetecture type
                 print arr1[3]; # rest of string that is not used
                 arr2 = split_string1(arr1[3], /Firefox\//);
-                print arr2[1];
+                print arr2[1]; # firefox version
                 }
          }
 }
+
 
 
 
