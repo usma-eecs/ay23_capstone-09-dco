@@ -31,8 +31,17 @@ addTest 4 "for Chromium Browsers"
 addTest 5 "blank string"
 expectedString=""
 result=""
-if [$expectedString == $result]; then
+# CITE: https://stackoverflow.com/questions/19733437/getting-command-not-found-error-while-comparing-two-strings-in-bash
+if [[ $expectedString = $result ]]; then
         testPassed 5 "blank string"
 else
         testFailed 5 "blank string"
+fi
+addTest 5 "Chromium Linux"
+expectedString="Linux x86_64 Chromium 107.0.0.0"
+result="$(zeek -C -r ../../httpWebsiteLinux.pcap -B all frameworks/software/httpOSDetect.zeek)"
+if [[ $expectedString == $result ]]; then
+        testPassed 5 "Chromium Linux"
+else
+        testFailed 5 "Chromium Linux"
 fi
