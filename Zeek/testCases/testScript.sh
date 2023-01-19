@@ -6,6 +6,13 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NOCOLOR='\033[0m'
 
+testPassed () {
+        OUTPUT=""
+        for ((i = 0; i < $1; i++)); do OUTPUT+="\t"; done
+        echo -e "$OUTPUT${GREEN}Test Passed!${NOCOLOR}"
+}
+testPassed 1
+
 echo "Zeek Scripts"
 echo "  can OS fingerprint"
 echo "          using HTTP"
@@ -20,3 +27,4 @@ else
         echo -e "                                                       ${RED}Test Failed!${NOCOLOR}"
 
 fi
+
