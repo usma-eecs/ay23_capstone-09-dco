@@ -7,11 +7,18 @@ GREEN='\033[0;32m'
 NOCOLOR='\033[0m'
 
 testPassed () {
-        OUTPUT=""
+        local OUTPUT=""
         for ((i = 0; i < $1; i++)); do OUTPUT+="\t"; done
         echo -e "$OUTPUT${GREEN}Test Passed!${NOCOLOR}"
 }
+testFailed () {
+        local OUTPUT=""
+        for ((i = 0; i < $1; i++)); do OUTPUT+="\t"; done
+        echo -e "$OUTPUT${RED}Test Failed!${NOCOLOR}"   
+}
 testPassed 1
+testFailed 1
+
 
 echo "Zeek Scripts"
 echo "  can OS fingerprint"
@@ -27,4 +34,3 @@ else
         echo -e "                                                       ${RED}Test Failed!${NOCOLOR}"
 
 fi
-
