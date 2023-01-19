@@ -28,14 +28,14 @@ addTest 1 "can OS fingerprint"
 addTest 2 "using HTTP"
 addTest 3 "on Linux"
 addTest 4 "for Chromium Browsers"
-addTest 5 "blank string"
+addTest 5 "Manual String"
 expectedString=""
 result=""
 # CITE: https://stackoverflow.com/questions/19733437/getting-command-not-found-error-while-comparing-two-strings-in-bash
-if [[ $expectedString = $result ]]; then
-        testPassed 5 "blank string"
+if [[ $expectedString == $result ]]; then
+        testPassed 5 "Chromium Linux"
 else
-        testFailed 5 "blank string"
+        testFailed 5 "Chromium Linux"
 fi
 addTest 5 "Chromium Linux"
 expectedString="Linux x86_64 Chromium 107.0.0.0"
@@ -44,4 +44,23 @@ if [[ $expectedString == $result ]]; then
         testPassed 5 "Chromium Linux"
 else
         testFailed 5 "Chromium Linux"
+fi
+
+addTest 4 "for FireFox Browser"
+addTest 5 "Manual String"
+expectedString="Ubuntu Linux x86_64 Firefox 108.0"
+result="Ubuntu Linux x86_64 Firefox 108.0"
+if [[ $expectedString == $result ]]; then
+        testPassed 5 "Firefox Linux"
+else
+        testFailed 5 "Firefox Linux"
+fi
+
+addTest 5 "Firefox Linux"
+epectedString="Ubuntu Linux x86_64 Firefox 108.0"
+result="$(zeek -C -r ../../httpWebsiteLinuxFirefox.pcap -B all frameworks/software/httpOSDetect.zeek | head -n 1)"
+if [[ $expectedString == $result ]]; then
+        testPassed 5 "Firefox Linux"
+else
+        testFailed 5 "Firefox Linux"
 fi
