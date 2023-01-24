@@ -24,7 +24,6 @@ addTest () {
 }
 addTest 0 "Zeek Scripts"
 addTest 1 "can OS fingerprint"
-addTest 2 "on Windows"
 addTest 2 "on Linux"
 addTest 3 "using HTTP"
 addTest 4 "for Chromium Browsers"
@@ -68,4 +67,25 @@ else
 	testFailed $num "Firefox Linux"
 fi
 
-addTest 3 "On Windows"
+addTest 2 "On Windows"
+addTest 3 "for Internet Explore"
+num=4
+addTest $num "Manual String Windows 10"
+expectedString="IP: 10.10.2.29 - Windows 10.0"
+result="IP: 10.10.2.29 - Windows 10.0"
+
+if [[ $expectedString == $result ]]; then
+	testPassed $num "Windows 10"
+else
+	testFailed $num "Windows 10"
+fi
+
+addTest $num "Windows 10"
+expectedString=$'IP: 10.10.2.29 - Windows 10.0\nIP: 10.10.2.29 - Windows 10.0'
+result="$(zeek -C -r ../../http1.1.pcap -B all frameworks/software/windows-version-detection.zeek)"
+
+if [[ $expectedString == $result ]]; then
+	testPassed $num "Windows 10"
+else
+	testFailed $num "Windows 10"
+fi
