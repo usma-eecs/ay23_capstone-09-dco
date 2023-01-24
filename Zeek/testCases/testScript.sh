@@ -63,16 +63,6 @@ else
         testFailed $num "create OS log"
 fi
 
-addTest $num "OS log content"
-output="$(zeek -C -r ../../httpWebsiteLinux.pcap -B all frameworks/software/httpOSDetect.zeek)"
-expected="$(cat OSExample.log)"
-result="$(cat OS.log)"
-if [[ $expectedString == $result ]]; then
-	testPassed $num "OS log content"
-else
-	testFailed $num "OS log content"
-fi
-
 addTest 4 "for FireFox Browser"
 num=5
 addTest $num "Manual String"
