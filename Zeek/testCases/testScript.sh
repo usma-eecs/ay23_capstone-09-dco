@@ -47,6 +47,32 @@ else
 	testFailed $num "Chromium Linux"
 fi
 
+addTest $num "create OS log"
+
+rm OS.log
+if [[ ! -f "OS.log" ]]; then
+        testPassed $num "create OS log no log"
+else
+        testFailed $num "create OS log no log"
+fi
+
+output="$(zeek -C -r ../../httpWebsiteLinux.pcap -B all frameworks/software/httpOSDetect.zeek)"
+if [[ -f "OS.log" ]]; then
+        testPassed $num "create OS log"
+else
+        testFailed $num "create OS log"
+fi
+
+addTest $num "OS log content"
+output="$(zeek -C -r ../../httpWebsiteLinux.pcap -B all frameworks/software/httpOSDetect.zeek)"
+expected="$(cat OSExample.log)"
+result="$(cat OS.log)"
+if [[ $expectedString == $result ]]; then
+	testPassed $num "OS log content"
+else
+	testFailed $num "OS log content"
+fi
+
 addTest 4 "for FireFox Browser"
 num=5
 addTest $num "Manual String"
@@ -65,25 +91,6 @@ if [[ $expectedString == $result ]]; then
 	testPassed $num "Firefox Linux"
 else
 	testFailed $num "Firefox Linux"
-fi
-
-addTest 4 "to create a log"
-addTest 5 "for chromium browsers"
-
-num=6
-addTest $num "create OS log"
-rm OS.log
-if [[ ! -f "OS.log" ]]; then
-	testPassed $num "create OS log no log"
-else
-	testFailed $num "create OS log no log"
-fi
-
-output="$(zeek -C -r ../../httpWebsiteLinux.pcap -B all frameworks/software/httpOSDetect.zeek)"
-if [[ -f "OS.log" ]]; then
-	testPassed $num "create OS log"
-else
-	testFailed $num "create OS log"
 fi
 
 addTest 2 "On Windows"
