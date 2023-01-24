@@ -67,6 +67,25 @@ else
 	testFailed $num "Firefox Linux"
 fi
 
+addTest 4 "to create a log"
+addTest 5 "for chromium browsers"
+
+num=6
+addTest $num "create OS log"
+rm OS.log
+if [[ ! -f "OS.log" ]]; then
+	testPassed $num "create OS log no log"
+else
+	testFailed $num "create OS log no log"
+fi
+
+output="$(zeek -C -r ../../httpWebsiteLinux.pcap -B all frameworks/software/httpOSDetect.zeek)"
+if [[ -f "OS.log" ]]; then
+	testPassed $num "create OS log"
+else
+	testFailed $num "create OS log"
+fi
+
 addTest 2 "On Windows"
 addTest 3 "for Internet Explore"
 num=4
