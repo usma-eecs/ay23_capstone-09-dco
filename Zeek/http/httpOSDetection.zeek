@@ -67,7 +67,7 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 arr2 = split_string1(arr1[3], /Firefox\//);
                 # print arr2[1]; # firefox version
 
-		print arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1];
+		# print arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1];
 		# Log::write(OS::LOG, [
 		#	$ip=rec$id$orig_h,
 		#	$os=arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1]]);
@@ -76,7 +76,7 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 #       $ip=rec$id$orig_h,
                 #       $os=arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1]]);
                 # print Software::found(rec$id, [$version=[$major=6, $minor=4, $addl="Firefox"], $name="Linux", $host=rec$id$orig_h, $software_type=UNKNOWN]);
-                print Software::found(rec$id, [$unparsed_version=rec$user_agent, $host=rec$id$resp_h, $host_p=rec$id$resp_p, $software_type=LINUX, $force_log=T]);
+                Software::found(rec$id, [$unparsed_version=rec$user_agent, $host=rec$id$resp_h, $host_p=rec$id$resp_p, $software_type=LINUX, $force_log=T, $name=arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1]]);
 		}
          }
 }
