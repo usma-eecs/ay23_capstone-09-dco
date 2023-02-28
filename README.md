@@ -35,3 +35,6 @@ We have a successful theoretical configure file to be pushed up to Zeek (see the
 
 ## Meeting with our Security Onion Contact   
 We met with Mr. Di Giorgio via Teams to ask his professional guidance on how to edit Zeek via the Salt stack. 
+
+# Final Design Review Report Feedback
+## Improves: block diagram, missing parallel work emphasis, conclusions, explain diagram better (specifically answer the question regarding the design of our contribution to the system), and fix SIEM misspelling on quad chart
