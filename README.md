@@ -37,9 +37,11 @@ We have a successful theoretical configure file to be pushed up to Zeek (see the
 We met with Mr. Di Giorgio via Teams to ask his professional guidance on how to edit Zeek via the Salt stack. 
 
 # Sprint 4 Accomplishments 
-## Elastic Search 
+## Sprint 4 Feedback 
+-how was capacity calculated? 
+-include sprint goal completion percentage
+-potential pie chart for types of OS
 
-## Zeek
 
 # Final Design Review Report Feedback
 ## Improves
