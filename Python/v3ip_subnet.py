@@ -55,7 +55,9 @@ for i, (ip,sof) in enumerate(sourceSoftware):
         uniqueIP.append(ip)
 
 """
-An excel sheet of all the subnets on the EECSnet was given to us and we utilized it to map subnets and their ranges to a clearly defined name such as 'EECSnet users'
+An excel sheet of all the subnets on the EECSnet was given to us and 
+we utilized it to map subnets and their ranges to a clearly defined 
+name such as 'EECSnet users'
 """
 
 df_excel = pd.read_excel('Network Configuration.xlsx')
