@@ -43,6 +43,8 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
         if (rec?$host && rec?$user_agent && /Linux/ in rec$user_agent) {
                 # ensures that we are working with a chrome browser
                 # a firefox browser parses differently/gives more information
+                print rec$host;
+		print rec$user_agent;
                 if (/Chrome\// in rec$user_agent) {
                 arr1 = split_string1(rec$user_agent, /\(/);
                 arr2 = split_string1(arr1[1], / /);
@@ -76,7 +78,10 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 #       $ip=rec$id$orig_h,
                 #       $os=arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1]]);
                 # print Software::found(rec$id, [$version=[$major=6, $minor=4, $addl="Firefox"], $name="Linux", $host=rec$id$orig_h, $software_type=UNKNOWN]);
-                Software::found(rec$id, [$unparsed_version=rec$user_agent, $host=rec$id$resp_h, $host_p=rec$id$resp_p, $software_type=LINUX, $force_log=T, $name=arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1]]);
+                # Software::found(rec$id, [$name=arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1], $unparsed_version=rec$user_agent, $host=rec$id$resp_h, $host_p=rec$id$resp_p, $software_type=LINUX, $force_log=T]);
+                Log::write(OS::LOG, [
+			$ip=rec$id$orig_h,
+			$os=$name=arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1]]);
 		}
          }
 }
