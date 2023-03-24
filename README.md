@@ -38,9 +38,9 @@ We met with Mr. Di Giorgio via Teams to ask his professional guidance on how to 
 
 # Sprint 4 Accomplishments 
 ## Sprint 4 Feedback 
--How was capacity calculated? 
--Include sprint goal completion percentage
--Potential pie chart for types of OS
+-How was capacity calculated?  
+-Include sprint goal completion percentage   
+-Potential pie chart for types of OS   
 
 
 # Final Design Review (FDR) 
@@ -48,8 +48,8 @@ We met with Mr. Di Giorgio via Teams to ask his professional guidance on how to 
 Block diagram, missing parallel work emphasis, conclusions, explain diagram better (specifically answer the question regarding the design of our contribution to the system), and fix SIEM misspelling on quad chart
 
 ## FDR Presentation Feedback  
--Create different length pitches about the project for Projects Day depending on the audience 
--Ensure all group members know it 
--Explain the purpose of passive network discovery (reduces network on a traffic/stealth) 
--Explain why our project is important 
--Know our audience we are presenting to 
+-Create different length pitches about the project for Projects Day depending on the audience    
+-Ensure all group members know it    
+-Explain the purpose of passive network discovery (reduces network on a traffic/stealth)    
+-Explain why our project is important    
+-Know our audience we are presenting to    
