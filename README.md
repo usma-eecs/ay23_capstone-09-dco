@@ -23,7 +23,14 @@ Dr. Suzanne Matthews
 https://securityonionsolutions.com/   
 https://docs.securityonion.net/en/2.3/introduction.html
 
-# Sprint 2 Accomplishments   
+
+### Sprints    
+
+<details>
+
+<summary>Sprint 2</summary>
+
+# Sprint 2 Accomplishments  
 
 ## Elastic Search   
 We have succeeded in dynamically querying ElasticSearch for post processing and then we can return post process data to ElasticSearch. The presets to query this data are: metadata, log, destination, source, and network.    
@@ -31,19 +38,38 @@ We have succeeded in dynamically querying ElasticSearch for post processing and 
 ## Zeek   
 We have a successful theoretical configure file to be pushed up to Zeek (see the local.zeek file). This Zeek file can start ingesting software data.    
 
-# Sprint 3 Accomplishments   
+</details>
+
+<details>
+
+<summary>Sprint 3 </summary>
+
+# Sprint 3 Accomplishments 
 
 ## Meeting with our Security Onion Contact   
-We met with Mr. Di Giorgio via Teams to ask his professional guidance on how to edit Zeek via the Salt stack. 
+We met with Mr. Di Giorgio via Teams to ask his professional guidance on how to edit Zeek via the Salt stack.
+
+</details>
+
+<details>
+
+<summary>Sprint 4</summary>
 
 # Sprint 4 Accomplishments 
+
 ## Sprint 4 Feedback 
 -How was capacity calculated?  
 -Include sprint goal completion percentage   
--Potential pie chart for types of OS   
+-Potential pie chart for types of OS 
+
+</details>
 
 
-# Final Design Review (FDR) 
+### CDR & FDR
+<details>
+
+<summary>Final Design Review (FDR)</summary>
+
 ## FDR Report Feedback 
 Block diagram, missing parallel work emphasis, conclusions, explain diagram better (specifically answer the question regarding the design of our contribution to the system), and fix SIEM misspelling on quad chart
 
@@ -53,3 +79,7 @@ Block diagram, missing parallel work emphasis, conclusions, explain diagram bett
 -Explain the purpose of passive network discovery (reduces network on a traffic/stealth)    
 -Explain why our project is important    
 -Know our audience we are presenting to    
+
+</details>
+ 
+
