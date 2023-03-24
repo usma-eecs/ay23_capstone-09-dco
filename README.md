@@ -19,9 +19,12 @@ MAJ John Fernandes
 ## Product Owners
 Dr. Suzanne Matthews 
 
-## Important Links
-https://securityonionsolutions.com/   
-https://docs.securityonion.net/en/2.3/introduction.html
+<details>
+<summary>Important Links</summary>     
+https://securityonionsolutions.com/      
+  
+https://docs.securityonion.net/en/2.3/introduction.html  
+</details>
 
 
 ### Sprints    
