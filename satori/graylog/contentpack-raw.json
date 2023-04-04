@@ -1,0 +1,271 @@
+{
+  "v": "1",
+  "id": "4ed8569d-19db-4ca7-8f31-4ed562ddf3f3",
+  "rev": 8,
+  "name": "Satori",
+  "summary": "Satori log file processing pipeline and rules",
+  "description": "",
+  "vendor": "Chatter on the Wire",
+  "url": "https://raw.githubusercontent.com/xnih/satori/master/graylog/contentpack-raw.json",
+  "parameters": [],
+  "entities": [
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline",
+        "version": "1"
+      },
+      "id": "97755ef3-fb8b-4f70-aa70-fd7f323fbde4",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "satori-raw"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Satori Passive OS Fingerprinting Processor"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "pipeline \"satori-raw\"\nstage 1 match either\nrule \"satori-convert_timestamp_from_log\"\nstage 0 match either\nrule \"satori-DHCP\"\nrule \"satori-TCP\"\nrule \"satori-USERAGENT\"\nrule \"satori-SMBNATIVE_NativeLanMan\"\nrule \"satori-SMBNATIVE_NativeOS\"\nrule \"satori-HTTPSERVER\"\nrule \"satori-SMBBROWSER\"\nend"
+        },
+        "connected_streams": [
+          {
+            "@type": "string",
+            "@value": "000000000000000000000001"
+          }
+        ]
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.1+6a0cc0b"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "ce483da6-4391-4c33-ad85-cafd2841e1ba",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "satori-HTTPSERVER"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Satori - HTTPSERVER Processor"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"satori-HTTPSERVER\"\nwhen\n  has_field(\"message\") AND contains(to_string($message.message), \";HTTPSERVER;\")\nthen\n  let extract = grok(pattern: \"%{DATA:timestamp_remote};%{IPV4:src_ip};%{COMMONMAC:src_mac};%{DATA:test_type};%{DATA:web_server};%{GREEDYDATA:os_guess}\" , value: to_string($message.message), only_named_captures: true);\n  set_fields(extract);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.1+6a0cc0b"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "a4a200a2-c321-4e4f-b0d0-fcb06f9ffdd6",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "satori-SMBBROWSER"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Satori - SMBBROWSER Processor"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"satori-SMBBROWSER\"\nwhen\n  has_field(\"message\") AND contains(to_string($message.message), \";SMBBROWSER;\")\nthen\n  let extract = grok(pattern: \"%{DATA:timestamp_remote};%{IPV4:src_ip};%{COMMONMAC:src_mac};%{DATA:test_type};%{DATA:smbbrowser_OS};%{DATA:smbbrowser_browser};%{GREEDYDATA:os_guess}\" , value: to_string($message.message), only_named_captures: true);\n  set_fields(extract);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.1+6a0cc0b"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "55093fd4-7357-4144-afba-3e8795972dee",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "satori-DHCP"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Satori - DHCP Processor"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"satori-DHCP\"\nwhen\n  has_field(\"message\") AND contains(to_string($message.message), \";DHCP;\")\nthen\n  let extract = grok(pattern: \"%{DATA:timestamp_remote};%{IPV4:src_ip};%{COMMONMAC:src_mac};%{DATA:test_type};%{DATA:dhcp_message_type};%{DATA:dhcp_field_type};%{DATA:dhcp_field_value};%{GREEDYDATA:os_guess}\" , value: to_string($message.message), only_named_captures: true);\n  set_fields(extract);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.1+6a0cc0b"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "08276c5b-a248-419b-b357-2a47ad883cb0",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "satori-SMBNATIVE_NativeOS"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Satori - SMBNATIVE NativeOS Processor"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"satori-SMBNATIVE_NativeOS\"\nwhen\n  has_field(\"message\") AND contains(to_string($message.message), \";SMBNATIVE;NativeOS\")\nthen\n  let extract = grok(pattern: \"%{DATA:timestamp_remote};%{IPV4:src_ip};%{COMMONMAC:src_mac};%{DATA:test_type};%{DATA:test_type2};%{DATA:native_name};%{GREEDYDATA:os_guess}\" , value: to_string($message.message), only_named_captures: true);\n  set_fields(extract);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.1+6a0cc0b"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "a5a34661-6104-45af-ab5a-c52600053f1d",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "satori-convert_timestamp_from_log"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Satori - TimeStamp Convertor"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"satori-convert_timestamp_from_log\"\nwhen\n  has_field(\"timestamp_remote\")\nthen\n  // the following date format assumes there's no time zone in the string\n  let s = split(\"\\\\.\", to_string($message.timestamp_remote));\n  let new_date = parse_date(to_string(s[0]), \"yyyy-MM-dd'T'HH:mm:ss\");\n  set_field(\"timestamp\", new_date);\n  remove_field(\"timestamp_remote\");\nend\n\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.1+6a0cc0b"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "4b99cef0-5274-4e64-8f91-df99937e1968",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "satori-SMBNATIVE_NativeLanMan"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Satori - SMBNATIVE NativeLanMan Processor"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"satori-SMBNATIVE_NativeLanMan\"\nwhen\n  has_field(\"message\") AND contains(to_string($message.message), \";SMBNATIVE;NativeLanMan\")\nthen\n  let extract = grok(pattern: \"%{DATA:timestamp_remote};%{IPV4:src_ip};%{COMMONMAC:src_mac};%{DATA:test_type};%{DATA:test_type2};%{DATA:native_lanman};%{GREEDYDATA:os_guess}\" , value: to_string($message.message), only_named_captures: true);\n  set_fields(extract);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.1+6a0cc0b"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "7b3e5edb-ec88-489d-96d2-e4fd8d6ffa31",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "satori-USERAGENT"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Satori - USERAGENT Processor"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"satori-USERAGENT\"\nwhen\n  has_field(\"message\") AND contains(to_string($message.message), \";USERAGENT;\")\nthen\n  let extract = grok(pattern: \"%{DATA:timestamp_remote};%{IPV4:src_ip};%{COMMONMAC:src_mac};%{DATA:test_type};%{DATA:useragent};%{GREEDYDATA:os_guess}\" , value: to_string($message.message), only_named_captures: true);\n  set_fields(extract);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.1+6a0cc0b"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "0b0883ed-5511-430f-8731-1d557682e75d",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "satori-TCP"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Satori - TCP Processor"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"satori-TCP\"\nwhen\n  has_field(\"message\") AND contains(to_string($message.message), \";TCP;\")\nthen\n  let extract = grok(pattern: \"%{DATA:timestamp_remote};%{IPV4:src_ip};%{COMMONMAC:src_mac};%{DATA:test_type};%{DATA:tcp_flags};%{DATA:tcp_signature};%{GREEDYDATA:os_guess}\" , value: to_string($message.message), only_named_captures: true);\n  set_fields(extract);\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=4.0.1+6a0cc0b"
+        }
+      ]
+    }
+  ]
+}
