@@ -56,7 +56,7 @@ export {
                 ["Microsoft-CryptoAPI/6.2"]             = [$name="Windows", $version=[$major=6, $minor=2, $addl="8 or Server 2012"]],
                 ["Microsoft-CryptoAPI/6.3"]             = [$name="Windows", $version=[$major=6, $minor=3, $addl="8.1 or Server 2012 R2"]],
                 ["Microsoft-CryptoAPI/6.4"]             = [$name="Windows", $version=[$major=6, $minor=4, $addl="10 Technical Preview"]],
-                ["Microsoft-CryptoAPI/10.0"]            = [$name="Windows", $version=[$major=10, $minor=0]],
+                ["Microsoft-CryptoAPI/10.0"]            = [$name="Windows", $version=[$major=10, $minor=0, $addl="10"]],
         } &redef;
 }
 
@@ -93,13 +93,19 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 if ( rec$user_agent !in crypto_api_mapping )
                         {
                         Software::found(rec$id, [$unparsed_version=sub(rec$user_agent, /Microsoft-CryptoAPI/, "Unknown CryptoAPI Version"), $host=rec$id$orig_h, $software_type=WINDOWS, $force_log=T]);
+			Log::write(OS::LOG, [
+				$ip=rec$id$orig_h,
+				$os=$name="Windows: " + "Unknown CryptoAPI Version"]);
                         }
                 else
                         {
                         local result = crypto_api_mapping[rec$user_agent];
                         # print rec;
-                        print fmt("IP: %s - %s %d.%d", rec$id$orig_h, result$name, result$version$major, result$version$minor);
+                        # print fmt("IP: %s - %s %d.%d", rec$id$orig_h, result$name, result$version$major, result$version$minor);
                         Software::found(rec$id, [$version=result$version, $name=result$name, $host=rec$id$orig_h, $software_type=WINDOWS, $force_log=T]);
+			Log::write(OS::LOG, [
+				$ip=rec$id$orig_h,
+				$os=$name=fmt("%s %s", result$name, result$version$addl)]);
                         }
                 }
 
