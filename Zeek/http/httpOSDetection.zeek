@@ -88,6 +88,24 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
 		}
          }
 
+	else if (rec?$user_agent && /Debian APT-HTTP/ in rec$user_agent && rec?$host) {
+		if (/kali.org/ in rec$host) {
+			Log::write(OS::LOG, [
+				$ip=rec$id$orig_h,
+				$os=$name="Kali Linux Update"]);
+		}
+		else if (/apt.pop-os.org/ in rec$host) {
+			Log::write(OS::LOG, [
+				$ip=rec$id$orig_h,
+				$os=$name="POP Linux Update"]);
+		}
+		else if (/us.archive.ubuntu.com/ in rec$host) {
+			Log::write(OS::LOG, [
+				$ip=rec$id$orig_h,
+				$os=$name="Ubuntu Linux Update"]);
+		}
+	}
+
 	else if (((rec?$host && rec?$user_agent && /oneocsp/ in rec$host) || (rec?$host && rec?$user_agent && /crl.microsoft.com/ in rec$host)) && /Microsoft-CryptoAPI\// in rec$user_agent)
                 {
                 if ( rec$user_agent !in crypto_api_mapping )
