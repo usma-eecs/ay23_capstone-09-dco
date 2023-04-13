@@ -99,7 +99,7 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
 				$ip=rec$id$orig_h,
 				$os=$name="POP Linux Update"]);
 		}
-		else if (/us.archive.ubuntu.com/ in rec$host) {
+		else if (/us.archive.ubuntu.com/ == rec$host) {
 			Log::write(OS::LOG, [
 				$ip=rec$id$orig_h,
 				$os=$name="Ubuntu Linux Update"]);
