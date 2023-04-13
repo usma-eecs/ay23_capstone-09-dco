@@ -106,11 +106,11 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
 		}
 	}
 
-	else if (((rec?$host && rec?$user_agent && /oneocsp/ in rec$host) || (rec?$host && rec?$user_agent && /crl.microsoft.com/ in rec$host)) && /Microsoft-CryptoAPI\// in rec$user_agent)
+	else if (rec?$host && rec?$user_agent && //Microsoft-CryptoAPI\// in rec$user_agent)
                 {
                 if ( rec$user_agent !in crypto_api_mapping )
                         {
-                        Software::found(rec$id, [$unparsed_version=sub(rec$user_agent, /Microsoft-CryptoAPI/, "Unknown CryptoAPI Version"), $host=rec$id$orig_h, $software_type=WINDOWS, $force_log=T]);
+                        Software::found(rec$id, [$unparsed_version=sub(rec$user_agent, /Microsoft-CryptoAPI/, "Unknown CryptoAPI Version"), $host=rec$id$orig_h, $software_type=WINDOWS]);
 			Log::write(OS::LOG, [
 				$ip=rec$id$orig_h,
 				$os=$name="Windows: " + "Unknown CryptoAPI Version"]);
@@ -120,7 +120,7 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                         local result = crypto_api_mapping[rec$user_agent];
                         # print rec;
                         # print fmt("IP: %s - %s %d.%d", rec$id$orig_h, result$name, result$version$major, result$version$minor);
-                        Software::found(rec$id, [$version=result$version, $name=result$name, $host=rec$id$orig_h, $software_type=WINDOWS, $force_log=T]);
+                        Software::found(rec$id, [$version=result$version, $name=result$name, $host=rec$id$orig_h, $software_type=WINDOWS]);
 			Log::write(OS::LOG, [
 				$ip=rec$id$orig_h,
 				$os=$name=fmt("%s %s", result$name, result$version$addl)]);
