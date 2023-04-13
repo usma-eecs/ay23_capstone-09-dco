@@ -106,7 +106,7 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
 		}
 	}
 
-	else if (rec?$host && rec?$user_agent && //Microsoft-CryptoAPI\// in rec$user_agent)
+	else if (rec?$host && rec?$user_agent && /\/Microsoft-CryptoAPI\// in rec$user_agent)
                 {
                 if ( rec$user_agent !in crypto_api_mapping )
                         {
