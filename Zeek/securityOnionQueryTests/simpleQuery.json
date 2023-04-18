@@ -1,10 +1,8 @@
+GET *:so-*/_search
 {
   "query": {
-    "simple_query_string": {
-      "query": "Linux",
-      "fields": [
-        "detection.OS"
-      ]
+    "exists": {
+      "field": "detection.OS"
     }
   }
 }
