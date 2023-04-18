@@ -26,6 +26,7 @@ export {
 	global arr3: string_vec;
 	global arr4: string_vec;
 	global arr5: string_vec;
+	global arr6: string_vec;
 	global versionArr: string_vec;
 
 	const crypto_api_mapping: table[string] of Software::name_and_version = {
@@ -71,20 +72,20 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
                 arr1 = split_string1(rec$user_agent, /\(/);
                 arr2 = split_string1(arr1[1], / /);
                 arr3 = split_string(arr2[1], /\)/);
-                arr4 = split_string1(rec$user_agent, /Chrome\//);
-                arr5 = split_string1(arr4[1], / /);
-		
-		print arr3[0] + " " + "Chromium " + arr5[0];
+                ## arr4 = split_string1(rec$user_agent, /Chrome\//);
+                ## arr5 = split_string1(arr4[1], / /);
+		arr6 = split_string1(arr3[0], / /);
 		Log::write(OS::LOG, [
 			$ip=rec$id$orig_h,
-			$os=arr3[0] + " " + "Chromium " + arr5[0]]);
+			$os="Unknown" + " " + arr6[0]]);
                 }
                 else if ("Firefox/" in rec$user_agent) {
                 arr1 = split_string_n(rec$user_agent, /\; /, F, 3);
                 arr2 = split_string1(arr1[3], /Firefox\//);
+		arr3 = split_string1(arr1[2], / /);
                 Log::write(OS::LOG, [
 			$ip=rec$id$orig_h,
-			$os=$name=arr1[1] + " " + arr1[2] + " " + "Firefox " + arr2[1]]);
+			$os=$name=arr1[1] + " " + arr3[0]]);
 		}
          }
 
