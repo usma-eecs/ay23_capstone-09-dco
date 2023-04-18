@@ -1,0 +1,22 @@
+title: Detect Kali Linux
+id: detected_kali_linux
+status: experimental
+description: 'Detects when Kali Linux has been identified in your network'
+tags:
+  - attack.network
+version: 1
+author: Security Onion User
+date: &lt;_DATE&gt;&gt;
+
+detection.sofware_type:
+   field: software_info.type
+   value: "Kali Linux"
+
+logsource.os_log_file:
+  category: os_log 
+  product.os_log: zeek  
+
+falsepositives:
+  - Unauthorized use of Kali Linux in the network
+
+level: high
