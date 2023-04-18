@@ -93,17 +93,17 @@ event HTTP::log_http(rec: HTTP::Info) &priority=5
 		if (/kali.org/ in rec$host) {
 			Log::write(OS::LOG, [
 				$ip=rec$id$orig_h,
-				$os=$name="Kali Linux Update"]);
+				$os=$name="Kali Linux"]);
 		}
 		else if (/apt.pop-os.org/ in rec$host) {
 			Log::write(OS::LOG, [
 				$ip=rec$id$orig_h,
-				$os=$name="POP Linux Update"]);
+				$os=$name="POP Linux"]);
 		}
 		else if (/us.archive.ubuntu.com/ == rec$host) {
 			Log::write(OS::LOG, [
 				$ip=rec$id$orig_h,
-				$os=$name="Ubuntu Linux Update"]);
+				$os=$name="Ubuntu Linux"]);
 		}
 	}
 
