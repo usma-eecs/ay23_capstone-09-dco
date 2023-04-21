@@ -1,10 +1,16 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, helpers
 from elasticsearch_dsl import Search
+from elasticsearch.helpers import scan
 import pandas as pd
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+from collections import defaultdict
 import ipaddress
 import csv
+import os
+import datetime
+#We are running this locally but imagine a scenario where you had a Jupyter Hub where anyone could log
+#on and run and update the script.
 
 """
 This initial block of code connects the script to the elasticsearch api, using our credentials to log into our elasticsearch server.
@@ -15,13 +21,15 @@ This initial block of code connects the script to the elasticsearch api, using o
     A dataframe, using pandas, is then created for ease of parsing.
 """
 es = Elasticsearch(['https://10.19.89.215:9200'],
-    ca_certs=False,verify_certs=False, http_auth=('jupyter','B3@+Navy!!'))
+    ca_certs=False,verify_certs=False, http_auth=('alicia.torres@westpoint.edu','B3@+Navy!!'))
 
-searchContext = Search(using=es, index='*:so-*', doc_type='doc')
+searchContext = Search(using=es, index='*:so-*', doc_type='doc').sort({'@timestamp': {'order':'desc'}})
 
-s = searchContext.query('query_string', query='event.dataset: software')
+s = searchContext.query('query_string', query='event.dataset: os')
 
-s = s.source(['source.ip','software.version.unparsed'])
+s = s.source(['source.ip','detection.OS'])
+
+s = s[0:10000]
 
 response = s.execute()
 if response.success():
@@ -30,23 +38,24 @@ if response.success():
 """
 The two commented lines below is to gain an understanding of how the dataframe formats our logs. It is key to working with the dataframe.
 """
-# softwares = df['software'].tolist() #a dictionary of dictionaries, primary key 'version' secondary key 'unparsed'
-# uniqueSourceIPs = df['source'].tolist()
 
 
 """
 Using the dataframe, we take the software and IPs from the dataframe and collect it into a single list of tuples formatted as (ip, software)
 """
 uniqueIP = []
-
-df['new_col'] = list(zip(df.source,df.software))
+df['new_col'] = list(zip(df.source,df.detection))
 dataLog = df['new_col'].tolist()
+
 
 sourceSoftware = []
 for item in dataLog:
-    sof = item[1].get('version').get('unparsed')
+    sof = item[1]
+    if type(sof) != dict: continue #error checking for bad values
+    sofActual = sof.get('OS')
+    if type(item[0]) != dict: continue #error checking for bad values
     ip = item[0].get('ip')
-    sourceSoftware.append((ip,sof))
+    sourceSoftware.append((ip,sofActual))
 
 for i, (ip,sof) in enumerate(sourceSoftware):
     if ip not in uniqueIP and not dict:
@@ -55,12 +64,10 @@ for i, (ip,sof) in enumerate(sourceSoftware):
         uniqueIP.append(ip)
 
 """
-An excel sheet of all the subnets on the EECSnet was given to us and 
-we utilized it to map subnets and their ranges to a clearly defined 
-name such as 'EECSnet users'
+An excel sheet of all the subnets on the EECSnet was given to us and we utilized it to map subnets and their ranges to a clearly defined name such as 'EECSnet users'
 """
 
-df_excel = pd.read_excel('Network Configuration.xlsx')
+df_excel = pd.read_csv('/home/admin/ay23_capstone-09-dco/Network Configuration.csv')
 
 net_names=[]
 subnets = []
@@ -91,27 +98,30 @@ for i in range(0, len(net_names)): #Links ip to subnets
         network = ipaddress.IPv4Network(subnets[i]) #puts the subnet into ipv4network object
         for (ip,sof) in ip_obj:
             if ip in network:
+                if((str(ip),sof,net_names[i]) in ipSofNet): continue
                 ipSofNet.append((str(ip),sof,net_names[i])) #Assigns a network to our IP in combination with our software
     except ipaddress.AddressValueError:
         continue
-
-# for net in ipSofNet: #Prints in user-friendly format in Console
-#     if isinstance(net,float):
-#         continue
-#     if isinstance(net,str) and net == '':
-#         continue
-#     elif not net[1:]:
-#         continue
-#     print(f"{net[0]} : {net[1]} : {net[2]}\n")
 
 """
 Once the data has been completely transformed it is then inputted into a csv for a more digestible product.
 """
 
 fields = ['IP', 'Software', 'Subnet']
-
-with open('output.csv', 'w+') as csvfile:                #https://www.geeksforgeeks.org/writing-csv-files-in-python/
+if os.path.exists('/home/admin/ay23_capstone-09-dco/output.csv'): os.remove('/home/admin/ay23_capstone-09-dco/output.csv')
+with open('/home/admin/ay23_capstone-09-dco/output.csv', 'w+') as csvfile:                #https://www.geeksforgeeks.org/writing-csv-files-in-python/
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(fields)
     csvwriter.writerows(ipSofNet)
-    
+
+index = 'results'
+
+with open('/home/admin/ay23_capstone-09-dco/output.csv') as f:
+    reader = csv.DictReader(f)
+    if es.indices.exists(index = index):
+        es.indices.delete(index=index,ignore=[400,404])
+    helpers.bulk(es,reader,index=index)
+
+
+
+
