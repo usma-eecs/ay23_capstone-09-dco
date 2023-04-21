@@ -1,0 +1,1 @@
+0 0 * * * /usr/bin/python3 /home/admin/ay23_capstone-09-dco/v3ip_subnet.py
