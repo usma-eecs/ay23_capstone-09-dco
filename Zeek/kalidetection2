@@ -1,0 +1,16 @@
+title: Kali Linux Detection
+status: experimental
+description: Detects Kali Linux on the Network
+author: Kevin Ruthemeyer
+logsource:
+    product: zeek
+    service: OS
+detection:
+    selection:
+        field: detection.OS
+    condition: Kali Linux
+falsepositives:
+    - None
+fields:
+    - source.ip
+level: high
