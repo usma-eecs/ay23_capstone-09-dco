@@ -6,7 +6,7 @@ A Network defenders’ visibility of their network is crucial to their success a
 ## Members of the team
 Cadet Claire Dworsky   
 Cadet Michael Grimm   
-Cadet Nicholas Liebers   
+Cadet Nicholas Liebers - 847-840-9054   
 Cadet Kevin Ruthemeyer   
 Cadet Alicia Torres   
 
@@ -25,6 +25,39 @@ https://securityonionsolutions.com/
   
 https://docs.securityonion.net/en/2.3/introduction.html  
 </details>
+
+
+
+
+# Installation Build Guide:
+## Security Onion Scripts
+The Zeek scripts that are of interest of located at https://github.com/usma-eecs/ay23_capstone-09-dco/blob/main/Zeek/http/httpOSDetection.zeek.
+For guidance on how to install this script into the Security Onion Environment, use the instructions located below: https://docs.securityonion.net/en/2.3/zeek.html#custom-scripts
+This script will run automatically, but data ingestion into the elastic stack is not provided by default since a new logtype is created. Below is the guidance to integrate the new script to Security Onion.
+
+## Security Onion Configuration
+
+## Post-processing
+*	GitHub: https://github.com/usma-eecs/ay23_capstone-09-dco/
+*	First, in order to get yourself familiarized with a pandas dataframe and the framework laid out by ElasticSearch check out SecurityOnion.ipynb  in the python folder of the GitHub repository it is a Jupyter notebook that will help you understand the data that is being parsed later.
+*	Have an account created on seconion.eecs.net by your advisor with superadmin privileges.
+    *	This is important as the scripts will not work without high enough privileges as it requires you to be able to upload the dataframe created by the script to ElasticSearch.
+*	Create a Virtual Machine so that you have a device that is constantly running.
+    *	The script will continually be run so you need an environment that will not be shut down.
+*	On the VM, pull the script v3ip_subnet.py from the python folder on the GitHub.
+    *	This is the main script for taking ingested data from the Zeek scripts where it is parsed and reformatted to fit the specifications required to create the Kibana dashboards.
+*	From the GitHub, in the same directory as the v3ip_subnet.py script pull the Network_Configuration.csv
+    *	Without this csv file the subnet mapping will not work.
+*	Create a CronJob by using the command ```crontab –e```
+    *	In the editor insert ``` 0 0 * * * [full path to python on machine] [full path to v3ip_subnet.py]” (ex. “0 0 * * * /usr/bin/python3 /home/admin/ay23_capstone-09-dco/v3ip_subnet.py”)```
+    *	It is crucial to make sure you insert a full path (ex.  ```/home/admin/scripts/v3ip_subnet.py```) as cronjobs will not work otherwise.
+*	At the conclusion of all these steps, the post-processing should be functional as long as the scripts on the Salt Stack are done correctly.
+
+
+## Kibana Dashboard
+*	On Kibana, which can be accessed through seconion.eecs.net, simply look for the index called “results”.
+*	Create a new dashboard using the “results” index and then you can access a devices IP, OS type, and subnet.
+*	With that you should be able to display the data in any format you wish.
 
 
 ### Sprints    
