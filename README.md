@@ -8,7 +8,7 @@ Cadet Claire Dworsky
 Cadet Michael Grimm   
 Cadet Nicholas Liebers - 847-840-9054   
 Cadet Kevin Ruthemeyer - kjruthemeyer@gmail.com
-Cadet Alicia Torres   
+Cadet Alicia Torres - aliciatorres32101@gmail.com 
 
 ## Instructors
 LTC Christopher Morrell   
