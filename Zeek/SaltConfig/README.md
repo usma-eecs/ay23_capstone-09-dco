@@ -1,5 +1,4 @@
-
-Files to configure:
+# Files to configure:
 
 ```global.sls``` -> the contents of this file should be pasted at the end of your global.sls file which is located at ```/opt/so/saltstack/local/pillar```. Once pasted you will need to restart the zeek docker with ```sudo so-zeek-restart```. We can test if the restart was successful with ```sudo docker logs so-zeek```
 
