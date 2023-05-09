@@ -72,9 +72,19 @@ Focus on the ```global.sls``` first, without this the zeek log will not even be 
 
 
 ## Kibana Dashboard
-*	On Kibana, which can be accessed through seconion.eecs.net, simply look for the index called “results”.
+*	On Kibana, which can be accessed through seconion.eecs.net, simply look for the index called “results”.     
+
+![Kibana](KibanaPic1.jpg)
+
 *	Create a new dashboard using the “results” index and then you can access a devices IP, OS type, and subnet.
+
+![Kibana](KibanaPic2.jpg)
+
 *	With that you should be able to display the data in any format you wish.
+
+![Kibana](KibanaPic3.jpg) 
+
+![Kibana](KibanaPic4.jpg) 
 
 
 ### Sprints    
