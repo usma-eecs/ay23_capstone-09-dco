@@ -32,7 +32,7 @@ https://docs.securityonion.net/en/2.3/introduction.html
 # Installation Build Guide:
 
 ## Requirements
-This tool requires a completed SecurityOnion setup on the implied network. Please review SecurityOnions documentation (https://docs.securityonion.net/en/2.3/installation.html) in order to install.
+This tool requires a completed SecurityOnion setup on the implied network. Please review SecurityOnions documentation (https://docs.securityonion.net/en/2.3/installation.html) in order to install. All following steps/file locations are on you local SecurityOnion setup.
 
 ## Security Onion Scripts
 The Zeek scripts that are of interest of located at https://github.com/usma-eecs/ay23_capstone-09-dco/blob/main/Zeek/http/httpOSDetection.zeek.
