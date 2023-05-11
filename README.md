@@ -16,9 +16,6 @@ LTC Christopher Morrell
 ## Advisors
 MAJ John Fernandes   
 
-## Product Owners
-Dr. Suzanne Matthews 
-
 <details>
 <summary>Important Links</summary>     
 https://securityonionsolutions.com/      
